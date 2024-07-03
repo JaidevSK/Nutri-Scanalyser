@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Scan and Score Labels</title>
+</head>
+<body>
+    <h1>Scan and Score Labels</h1>
+    <form action="/score_labels" method="post">
+        <!-- Inageinput -->
+        <div class="form-group">
+            <label for="image">Image</label>
+            <input type="file" class="form-control" id="image" name="image">
+        </div>
+        <!--Ingrimg-->
+        <div class="form-group">
+            <label for="ingr_img">Ingredients Image</label>
+            <input type="file" class="form-control" id="ingr_img" name="ingr_img">
+        </div>
+        <!--Submit-->
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+    <!--Display score-->
+    <h2>Score: {{score}}</h2>
+    <h2>Contains Palm Oil: {{palmoil_has}}</h2>
+    <h2>Contains Preservatives: {{preservatives_has}}</h2>
+    <h2>Contains Artificial Flavours: {{artificialflavours_has}}</h2>
+    
+</body>
+</html>

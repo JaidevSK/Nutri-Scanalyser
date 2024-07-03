@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Dashboard</title>
+  <meta charset="utf-8">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.4/dist/jquery.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+  <link rel="stylesheet" href="static/dashboard.css">
+
+</head>
+<body>
+    <h2 id="heading">Nutri Scanalyser</h2>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <div class="container-fluid">
+          <a class="navbar-brand" href="#">Nutri Scanalyser</a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+              <li class="nav-item">
+                  <a class="nav-link active" aria-current="page" href="/dashboard">Dashboard</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" aria-current="page" href="/add_food">Add Food</a>
+              </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/scan_food">Scan Food</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/add_custom_food">Add Custom Food</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/view_custom_food">View Custom Food</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/reset_today">Reset Today</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/logout">Logout</a>
+                </li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+<div class="container">
+    <h2> Welcome {{user.name}} to your personal dashboard</h2>
+    <p>Here you can view your daily and weekly nutritional consumption as of {{user.day1_date}}. You can also add food items, scan food items, add custom food items, view custom food items, reset today's consumption and logout from your account.</p>
+            <h3>Daily Dashboard</h3>
+
+            <!-- <p><b>Your calorie consumption for today is: </b> {{user.day1_calories}} cal out of {{max_consumption['energy']}} cal</p> -->
+            <!--In a row-->
+            <div class="row">
+                <div class="col">
+                    <div id="todayCalories" style="width:100%;max-width:500px"></div>    
+                </div>
+                <div class="col">
+                    <div id="todayProtein" style="width:100%;max-width:500px"></div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col">
+                    <div id="todayFats" style="width:100%;max-width:500px"></div>    
+                </div>
+                <div class="col">
+                    <div id="todayCarbs" style="width:100%;max-width:500px"></div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col">
+                    <div id="todaySugar" style="width:100%;max-width:500px"></div>    
+                </div>
+                <div class="col">
+                    <div id="todaySodium" style="width:100%;max-width:500px"></div>
+                </div>
+            </div>
+
+
+
+
+            <script>
+                const xcal_today = ["Your Consumption", "Remaining Amount"];
+                const ycal_today = [{{user.day1_calories}}, {{max_consumption['energy']-user.day1_calories}}];
+                
+                const layout_cal = {title:"Today's Calorie Consumption in kcal"};
+                
+                const data_cal = [{labels:xcal_today, values:ycal_today, hole:.5, type:"pie"}];
+                
+                Plotly.newPlot("todayCalories", data_cal, layout_cal);
+            </script>
+            
+
+
+
+
+            <!-- <p><b>Your protein consumption for today is: </b> {{user.day1_protein}} g out of {{max_consumption['protein']}} g</p> -->
+
+            
+            <script>
+                const xprot_today = ["Your Consumption", "Remaining Amount"];
+                const yprot_today = [{{user.day1_protein}}, {{max_consumption['protein']-user.day1_protein}}];
+                
+                const layout_prot = {title:"Today's Protein Consumption in g"};
+                
+                const data_prot = [{labels:xprot_today, values:yprot_today, hole:.5, type:"pie"}];
+                
+                Plotly.newPlot("todayProtein", data_prot, layout_prot);
+            </script>
+
+            <!-- <p><b>Your fat consumption for today is: </b> {{user.day1_fats}} g out of {{max_consumption['total fat']}} g</p> -->
+
+            <script>
+                const xfats_today = ["Your Consumption", "Remaining Amount"];
+                const yfats_today = [{{user.day1_fats}}, {{max_consumption['total fat']-user.day1_fats}}];
+                
+                const layout_fats = {title:"Today's Fat Consumption in g"};
+                
+                const data_fats = [{labels:xfats_today, values:yfats_today, hole:.5, type:"pie"}];
+                
+                Plotly.newPlot("todayFats", data_fats, layout_fats);
+            </script>
+
+            <!-- <p><b>Your carbohydrate consumption for today is: </b> {{user.day1_carbs}} g out of {{max_consumption['carbohydrate']}} g</p> -->
+
+            <script>
+                const xcarbs_today = ["Your Consumption", "Remaining Amount"];
+                const ycarbs_today = [{{user.day1_carbs}}, {{max_consumption['carbohydrate']-user.day1_carbs}}];
+                
+                const layout_carbs = {title:"Today's Carbohydrate Consumption in g"};
+                
+                const data_carbs = [{labels:xcarbs_today, values:ycarbs_today, hole:.5, type:"pie"}];
+                
+                Plotly.newPlot("todayCarbs", data_carbs, layout_carbs);
+
+            </script>
+
+            <!-- <p><b>Your sugar consumption for today is: </b> {{user.day1_sugar}} g out of {{max_consumption['total sugar']}} g</p> -->
+
+            <script>
+                const xsugar_today = ["Your Consumption", "Remaining Amount"];
+                const ysugar_today = [{{user.day1_sugar}}, {{max_consumption['total sugar']-user.day1_sugar}}];
+                
+                const layout_sugar = {title:"Today's Sugar Consumption in g"};
+                
+                const data_sugar = [{labels:xsugar_today, values:ysugar_today, hole:.5, type:"pie"}];
+                
+                Plotly.newPlot("todaySugar", data_sugar, layout_sugar);
+            </script>
+
+            <!-- <p><b>Your sodium consumption for today is: </b> {{user.day1_sodium}} mg out of {{max_consumption['sodium']}} mg</p> -->
+
+            <script>
+                const xsodium_today = ["Your Consumption", "Remaining Amount"];
+                const ysodium_today = [{{user.day1_sodium}}, {{max_consumption['sodium']-user.day1_sodium}}];
+                
+                const layout_sodium = {title:"Today's Sodium Consumption in mg"};
+                
+                const data_sodium = [{labels:xsodium_today, values:ysodium_today, hole:.5, type:"pie"}];
+                
+                Plotly.newPlot("todaySodium", data_sodium, layout_sodium);
+            </script>
+
+            <h3>Weekly Dashboard</h3>
+
+            <div class="row">
+                <div class="col">
+                    <div id="cal_week" style="width:100%;max-width:700px"></div>
+                </div>
+                <div class="col">
+                    <div id="prot_week" style="width:100%;max-width:700px"></div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col">
+                    <div id="fats_week" style="width:100%;max-width:700px"></div>
+                </div>
+                <div class="col">
+                    <div id="carbs_week" style="width:100%;max-width:700px"></div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col">
+                    <div id="sugar_week" style="width:100%;max-width:700px"></div>
+                </div>
+                <div class="col">
+                    <div id="sodium_week" style="width:100%;max-width:700px"></div>
+                </div>
+            </div>
+
+            <script>
+            const x_cal_week = [{{user.day1_calories}}, {{user.day2_calories}}, {{user.day3_calories}}, {{user.day4_calories}}, {{user.day5_calories}}, {{user.day6_calories}}, {{user.day7_calories}}];
+            const y_cal_week = ["Today ", "Yesterday ", "2 Days Ago ", "3 Days Ago ", "4 Days Ago ", "5 Days Ago ", "6 Days Ago "];
+            const data_cal_week = [{
+            x:x_cal_week,
+            y:y_cal_week,
+            type:"bar",
+            orientation:"h",
+            marker: {color:"rgba(255,0,0)"},
+            line: {color:"rgba(255,0,0)", width:2, x0:0, x1:1, xref:"paper", y0:0, y1:1, yref:"paper"}
+            }];
+            const layout_cal_week = {title:"Weekly Calorie Consumption in kcal", xaxis: {title: "Calories in kcal"}};
+            Plotly.newPlot("cal_week", data_cal_week, layout_cal_week);
+            </script>
+
+
+            <script>
+            const x_prot_week = [{{user.day1_protein}}, {{user.day2_protein}}, {{user.day3_protein}}, {{user.day4_protein}}, {{user.day5_protein}}, {{user.day6_protein}}, {{user.day7_protein}}];
+            const y_prot_week = ["Today ", "Yesterday ", "2 Days Ago ", "3 Days Ago ", "4 Days Ago ", "5 Days Ago ", "6 Days Ago "];
+            const data_prot_week = [{
+            x:x_prot_week,
+            y:y_prot_week,
+            type:"bar",
+            orientation:"h",
+            marker: {color:"rgba(0,255,0)"},
+            line: {color:"rgba(0,255,0)", width:2, x0:0, x1:1, xref:"paper", y0:0, y1:1, yref:"paper"}
+            }];
+            const layout_prot_week = {title:"Weekly Protein Consumption in g", xaxis: {title: "Protein in g"}};
+            Plotly.newPlot("prot_week", data_prot_week, layout_prot_week);
+            </script>
+
+            <script>
+            const x_fats_week = [{{user.day1_fats}}, {{user.day2_fats}}, {{user.day3_fats}}, {{user.day4_fats}}, {{user.day5_fats}}, {{user.day6_fats}}, {{user.day7_fats}}];
+            const y_fats_week = ["Today ", "Yesterday ", "2 Days Ago ", "3 Days Ago ", "4 Days Ago ", "5 Days Ago ", "6 Days Ago "];
+            const data_fats_week = [{
+            x:x_fats_week,
+            y:y_fats_week,
+            type:"bar",
+            orientation:"h",
+            marker: {color:"rgba(0,0,255)"},
+            line: {color:"rgba(0,0,255)", width:2, x0:0, x1:1, xref:"paper", y0:0, y1:1, yref:"paper"}
+            }];
+            const layout_fats_week = {title:"Weekly Fat Consumption in g", xaxis: {title: "Fat in g"}};
+            Plotly.newPlot("fats_week", data_fats_week, layout_fats_week);
+            </script>
+
+            <script>
+            const x_carbs_week = [{{user.day1_carbs}}, {{user.day2_carbs}}, {{user.day3_carbs}}, {{user.day4_carbs}}, {{user.day5_carbs}}, {{user.day6_carbs}}, {{user.day7_carbs}}];
+            const y_carbs_week = ["Today ", "Yesterday ", "2 Days Ago ", "3 Days Ago ", "4 Days Ago ", "5 Days Ago ", "6 Days Ago "];
+            const data_carbs_week = [{
+            x:x_carbs_week,
+            y:y_carbs_week,
+            type:"bar",
+            orientation:"h",
+            marker: {color:"rgba(255,255,0)"},
+            line: {color:"rgba(255,255,0)", width:2, x0:0, x1:1, xref:"paper", y0:0, y1:1, yref:"paper"}
+            }];
+            const layout_carbs_week = {title:"Weekly Carbohydrate Consumption in g", xaxis: {title: "Carbohydrate in g"}};
+            Plotly.newPlot("carbs_week", data_carbs_week, layout_carbs_week);
+            </script>
+
+            <script>
+            const x_sugar_week = [{{user.day1_sugar}}, {{user.day2_sugar}}, {{user.day3_sugar}}, {{user.day4_sugar}}, {{user.day5_sugar}}, {{user.day6_sugar}}, {{user.day7_sugar}}];
+            const y_sugar_week = ["Today ", "Yesterday ", "2 Days Ago ", "3 Days Ago ", "4 Days Ago ", "5 Days Ago ", "6 Days Ago "];
+            const data_sugar_week = [{
+            x:x_sugar_week,
+            y:y_sugar_week,
+            type:"bar",
+            orientation:"h",
+            marker: {color:"rgba(255,0,255)"},
+            line: {color:"rgba(255,0,255)", width:2, x0:0, x1:1, xref:"paper", y0:0, y1:1, yref:"paper"}
+            }];
+            const layout_sugar_week = {title:"Weekly Sugar Consumption in g", xaxis: {title: "Sugar in g"}};
+            Plotly.newPlot("sugar_week", data_sugar_week, layout_sugar_week);
+            </script>
+
+            <script>
+            const x_sodium_week = [{{user.day1_sodium}}, {{user.day2_sodium}}, {{user.day3_sodium}}, {{user.day4_sodium}}, {{user.day5_sodium}}, {{user.day6_sodium}}, {{user.day7_sodium}}];
+            const y_sodium_week = ["Today ", "Yesterday ", "2 Days Ago ", "3 Days Ago ", "4 Days Ago ", "5 Days Ago ", "6 Days Ago "];
+            const data_sodium_week = [{
+            x:x_sodium_week,
+            y:y_sodium_week,
+            type:"bar",
+            orientation:"h",
+            marker: {color:"rgba(0,255,255)"},
+            line: {color:"rgba(0,255,255)", width:2, x0:0, x1:1, xref:"paper", y0:0, y1:1, yref:"paper"}
+            }];
+            const layout_sodium_week = {title:"Weekly Sodium Consumption in mg", xaxis: {title: "Sodium in mg"}};
+            Plotly.newPlot("sodium_week", data_sodium_week, layout_sodium_week);
+            </script>
+</div>
+</body>
+
+
+<footer>
+<div class="footer">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"/>
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/typed.js/2.0.11/typed.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/waypoints/4.0.1/jquery.waypoints.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <ul id="media">
+        <!--Email-->
+        <li style="--clr: red;">
+            <a href="mailto: jaidevkhalane@gmail.com"><i class="fa fa-envelope"></i></a>
+        </li>
+        <!-- GitHub  -->
+        <li style="--clr:black;">
+            <a href=""><i class="fa fa-github"></i></a>
+        </li>
+        <!-- LinkedIn  -->
+        <li style="--clr: blue;">
+            <a href=""><i class="fa fa-linkedin-square"></i></a>
+        </li>
+    </ul>
+    <p>&copy; 2024 JaidevSK</p>
+  </div>
+</footer>
+</html>

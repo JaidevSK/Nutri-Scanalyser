@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+    <link rel="stylesheet" href="static/scan_food.css">
+    <title>Scan Food</title>
+    <h2 id="heading">Nutri Scanalyser</h2>
+
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <div class="container-fluid">
+          <a class="navbar-brand" href="#">Nutri Scanalyser</a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+              <li class="nav-item">
+                  <a class="nav-link" aria-current="page" href="/dashboard">Dashboard</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" aria-current="page" href="/add_food">Add Food</a>
+              </li>
+                <li class="nav-item">
+                    <a class="nav-link active" href="/scan_food">Scan Food</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/add_custom_food">Add Custom Food</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/view_custom_food">View Custom Food</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/reset_today">Reset Today</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/logout">Logout</a>
+                </li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+    <div class="container">
+    <h1>Scan Food</h1>
+    <!--Input the image, the servings consumed and the total number of servings-->
+    <form action="/scan_food" method="POST" enctype="multipart/form-data">
+        <div class="form-group">
+            <label for="image">Image</label>
+            <input type="file" class="form-control" id="image" name="image">
+        </div>
+        <div class="form-group">
+            <label for="servings">Servings</label>
+            <input type="number" class="form-control" id="servings" name="servings" placeholder="Enter servings">
+        </div>
+        <div class="form-group">
+            <label for="total_servings">Total Servings</label>
+            <input type="number" class="form-control" id="total_servings" name="total_servings" placeholder="Enter total servings">
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>    
+    </div>
+</body>
+
+
+<footer>
+    <div class="footer">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"/>
+        <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/typed.js/2.0.11/typed.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/waypoints/4.0.1/jquery.waypoints.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <ul id="media">
+            <!--Email-->
+            <li style="--clr: red;">
+                <a href="mailto: jaidevkhalane@gmail.com"><i class="fa fa-envelope"></i></a>
+            </li>
+            <!-- GitHub  -->
+            <li style="--clr:black;">
+                <a href=""><i class="fa fa-github"></i></a>
+            </li>
+            <!-- LinkedIn  -->
+            <li style="--clr: blue;">
+                <a href=""><i class="fa fa-linkedin-square"></i></a>
+            </li>
+        </ul>
+        <p>&copy; 2024 JaidevSK</p>
+      </div>
+    </footer>
+
+
+</html>
